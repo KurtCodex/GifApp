@@ -1,18 +1,24 @@
 import React from 'react'
 import { useState } from 'react'
 
-export const AddCategory = () => {
+export const AddCategory = ({ setCategories }) => {
 
     const [inputValue, setInputValue] = useState('')
 
     const onInputChange = ({ target }) => { // (event) =>desestructurado => ({target})
-        console.log(target.value);
         setInputValue(target.value)
     }
+
+
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(inputValue)
+
+        if (inputValue.trim().length <= 1) return;
+        setInputValue('');
+        setCategories((categories) => [inputValue, ...categories])
     }
+
+
 
     return (
         <form onSubmit={(event) => onSubmit(event)}>
